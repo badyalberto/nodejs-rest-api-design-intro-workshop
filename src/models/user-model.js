@@ -29,6 +29,10 @@ const UserSchema = new mongoose.Schema(
       required: [true, "The password is required"],
       minlength: [8, "The password is too short"],
     },
+    dateOfBirth: {
+      type: Date,
+      required: [true,"The date of birth is required"]
+    },
     speaks: [
       {
         type: String,

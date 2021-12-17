@@ -35,7 +35,19 @@ const { logger } = require("../config/config");
  * Wrap the code in a try/catch statement and call next(error)
  * with the error object that is caught
  */
-async function createBook() {}
+async function createBook(req, res, next) {
+  try {
+    const data = req.body;
+    const book = await db.Book.create(data);
+    //console.log(data);
+
+    res.status(201).send({
+      data: book._id,
+    });
+  } catch (err) {
+    next(err);
+  }
+}
 
 /**
  * 1. Create the book CRUD controllers
@@ -54,7 +66,16 @@ async function createBook() {}
  *
  * And call lean() and exec() on the query
  */
-async function getBooks() {}
+async function getBooks(req, res, next) {
+  try {
+    const books = await db.Book.find({}, { _id: 0, __v: 0 }).lean().exec(); //lean no muestra los metodos find(no mostrar el id y la v)
+    res.status(200).send({
+      data: books,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
 
 /**
  * 1. Create the book CRUD controllers
@@ -88,7 +109,28 @@ async function getBooks() {}
  *
  * And call lean() and exec() on the query
  */
-async function getSingleBook() {}
+async function getSingleBook(req, res, next) {
+  try {
+    const id = req.params["bookId"];
+    console.log(id);
+    const book = await db.Book.findOne(
+      { _id: id },
+      { __v: 0, stats: 0, year: 0, genre: 0 },
+    )
+      .populate({
+        path: "author",
+        select: { _id: 1, firstName: 1, lastName: 1 },
+      })
+      .lean()
+      .exec();
+    console.log(book);
+    res.status(200).send({
+      data: book,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
 
 /**
  * 1. Create the book CRUD controllers
@@ -115,7 +157,22 @@ async function getSingleBook() {}
  * Wrap the code in a try/catch statement and call next(error)
  * with the error object that is caught
  */
-async function updateBook() {}
+async function updateBook(req, res, next) {
+  try {
+    const bookId = req.params["bookId"];
+    const data = req.body;
+    const bookUpdated = await db.Book.findByIdAndUpdate(bookId, data, {
+      new: true,
+    })
+      .lean()
+      .exec(); //lean no muestra los metodos find(no mostrar el id y la v)
+    res.status(201).send({
+      data: bookUpdated,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
 
 /**
  * 1. Create the book CRUD controllers
@@ -135,7 +192,19 @@ async function updateBook() {}
  * Wrap the code in a try/catch statement and call next(error)
  * with the error object that is caught
  */
-async function deleteBook() {}
+async function deleteBook(req, res, next) {
+  try {
+    const bookId = req.params["bookId"];
+
+    const bookDeleted = await db.Book.findOneAndDelete(bookId).lean().exec();
+
+    res.status(200).send({
+      data: { _id: bookDeleted._id },
+    });
+  } catch (error) {
+    next(error);
+  }
+}
 
 module.exports = {
   createBook: createBook,
