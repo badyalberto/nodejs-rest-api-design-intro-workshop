@@ -31,7 +31,7 @@ const UserSchema = new mongoose.Schema(
     },
     dateOfBirth: {
       type: Date,
-      required: [true,"The date of birth is required"]
+      //required: [true,"The date of birth is required"]
     },
     speaks: [
       {

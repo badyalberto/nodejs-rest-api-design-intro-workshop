@@ -1,0 +1,120 @@
+{
+	"info": {
+		"_postman_id": "78ec293d-73fe-433a-b7be-2122be539bb9",
+		"name": "Editorial",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Editorials",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:4000/editorial",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"editorial"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get single editorial",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:4000/editorial/61bc611ff864e42ba861df1f",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"editorial",
+						"61bc611ff864e42ba861df1f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Editorial",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Editoriales2\",\r\n    \"dateOfCreation\": \"2000-05-21\",\r\n    \"author\": [\"61bc4f4c17351f03e4d2a715\"],\r\n    \"book\": [\"61bb4df00924a01af422a20e\",\"61bb4df00924a01af422a20f\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4000/editorials",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"editorials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Editorial",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"editorial edit\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4000/editorials/61bc60abf864e42ba861df1e",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"editorials",
+						"61bc60abf864e42ba861df1e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Editorial",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:4000/editorials/61c03fda8d04463688004f5d",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"editorials",
+						"61c03fda8d04463688004f5d"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

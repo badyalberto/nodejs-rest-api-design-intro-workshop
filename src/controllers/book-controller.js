@@ -68,7 +68,7 @@ async function createBook(req, res, next) {
  */
 async function getBooks(req, res, next) {
   try {
-    const books = await db.Book.find({}, { _id: 0, __v: 0 }).lean().exec(); //lean no muestra los metodos find(no mostrar el id y la v)
+    const books = await db.Book.find({}, { _id: 1, title: 1 }).lean().exec(); //lean no muestra los metodos find(no mostrar el id y la v)
     res.status(200).send({
       data: books,
     });
@@ -112,7 +112,6 @@ async function getBooks(req, res, next) {
 async function getSingleBook(req, res, next) {
   try {
     const id = req.params["bookId"];
-    console.log(id);
     const book = await db.Book.findOne(
       { _id: id },
       { __v: 0, stats: 0, year: 0, genre: 0 },
@@ -123,7 +122,6 @@ async function getSingleBook(req, res, next) {
       })
       .lean()
       .exec();
-    console.log(book);
     res.status(200).send({
       data: book,
     });
@@ -166,7 +164,7 @@ async function updateBook(req, res, next) {
     })
       .lean()
       .exec(); //lean no muestra los metodos find(no mostrar el id y la v)
-    res.status(201).send({
+    res.status(200).send({
       data: bookUpdated,
     });
   } catch (error) {
